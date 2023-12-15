@@ -1,0 +1,252 @@
+
+{
+  "status": true,
+  "message": "Details Fetched Successfully",
+  "data": [
+    {
+      "date": "2023-12-15",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    },
+    {
+      "date": "2023-12-14",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    },
+    {
+      "date": "2023-12-13",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    },
+    {
+      "date": "2023-12-12",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    },
+    {
+      "date": "2023-12-11",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    },
+    {
+      "date": "2023-12-10",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    },
+    {
+      "date": "2023-12-09",
+      "summaryData": [
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "100.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "120.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "320.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "410.00",
+          "activityValue1": "0"
+        },
+        {
+          "activityType": "1",
+          "activityName": "NumberOfGlassTaken",
+          "activityValue": "50.00",
+          "activityValue1": "0"
+        }
+      ]
+    }
+  ]
+}
