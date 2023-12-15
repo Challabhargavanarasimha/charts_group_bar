@@ -6,6 +6,7 @@ import 'package:example/charts/bar_target_chart_screen.dart';
 import 'package:example/charts/migration_chart_screen.dart';
 import 'package:example/charts/scrollable_visible_items_chart_screen.dart';
 import 'package:example/complex/complex_charts.dart';
+import 'package:example/grouped/grouped_charts.dart';
 import 'package:example/showcase/ios_charts.dart';
 import 'package:example/showcase/showcase_charts.dart';
 import 'package:example/summary_model.dart';
@@ -16,8 +17,9 @@ import 'charts/scrollable_chart_screen.dart';
 
 void main() {
   runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-        primaryColor: Colors.red,
+        primaryColor: Colors.orange,
         colorScheme: ThemeData.light()
             .colorScheme
             .copyWith(
@@ -39,9 +41,11 @@ class ChartDemo extends StatefulWidget {
 
 class _ChartDemoState extends State<ChartDemo> {
   List? data;
+
   // List<DailyActivitySummerData> userlist = [];
   // List<SummaryData>? usersavedlist =[];
   int? index;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,34 +66,75 @@ class ShowList extends StatefulWidget {
 }
 
 class _ShowListState extends State<ShowList> {
-
-
-
   Future<void> fetchData() async {
-    String? data= await DefaultAssetBundle.of(context).loadString("assets/values.json");
+    String? data =
+        await DefaultAssetBundle.of(context).loadString("assets/values.json");
     dynamic decodedData = jsonDecode(data);
     debugPrint('decodedData -------------------$decodedData');
-    // final jsonResult = json.decode(data);
-
-    // Access data from JSON
-    // List<dynamic> items = jsonData['items'];
-    //
-    // for (var item in items) {
-    //   print('ID: ${item['id']}, Name: ${item['name']}');
-    // }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     fetchData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
         SizedBox(
           height: 8.0,
+        ),
+        ListTile(
+          title: Text(
+            'Custom Group Bar Charts',
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18.0,
+                ),
+          ),
+          trailing: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Container(
+              width: 100.0,
+              child: Chart(
+                state: ChartState<void>(
+                  data: ChartData.fromList(
+                    [1, 3, 4, 2, 7, 6, 2, 5, 4]
+                        .map((e) => BarValue<void>(e.toDouble()))
+                        .toList(),
+                    axisMax: 8,
+                  ),
+                  itemOptions: BarItemOptions(
+                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    barItemBuilder: (_) => BarItem(
+                      color: Theme.of(context).colorScheme.secondary,
+                      radius: BorderRadius.vertical(top: Radius.circular(12.0)),
+                    ),
+                  ),
+                  backgroundDecorations: [
+                    GridDecoration(
+                      verticalAxisStep: 1,
+                      horizontalAxisStep: 4,
+                      gridColor: Theme.of(context).dividerColor,
+                    ),
+                    SparkLineDecoration(
+                      lineColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context)
+                .push<void>(MaterialPageRoute(builder: (_) => GroupedCharts()));
+          },
+        ),
+        SizedBox(
+          height: 80.0,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
