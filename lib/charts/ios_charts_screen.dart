@@ -86,7 +86,7 @@ class _IosChartScreenState extends State<IosChartScreen> {
               constraints: BoxConstraints(maxWidth: 500),
               child: SizedBox(
                 height: 180,
-                child: BarChart(
+                child: BarCharts(
                   data: _batteryData
                       .map((e) => BarValue<void>(e.toDouble()))
                       .toList(),

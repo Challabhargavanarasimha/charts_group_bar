@@ -1,24 +1,29 @@
 import 'dart:math';
 
 import 'package:charts_painter/chart.dart';
+import 'package:example/grouped/summary_model.dart';
 import 'package:example/widgets/chart_options.dart';
 import 'package:example/widgets/toggle_item.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bar_chart.dart';
+import 'custom_bar_chart.dart';
 
-class MultiBarChartScreen extends StatefulWidget {
-  MultiBarChartScreen({Key? key}) : super(key: key);
+class CustomMultiBarChartScreen extends StatefulWidget {
+  final DailyActivitySummerModel? summaryData;
+
+  CustomMultiBarChartScreen({Key? key, this.summaryData}) : super(key: key);
 
   @override
-  _MultiBarChartScreenState createState() => _MultiBarChartScreenState();
+  _CustomMultiBarChartScreenState createState() =>
+      _CustomMultiBarChartScreenState();
 }
 
-class _MultiBarChartScreenState extends State<MultiBarChartScreen> {
+class _CustomMultiBarChartScreenState extends State<CustomMultiBarChartScreen> {
   Map<int, List<BarValue<void>>> _values = <int, List<BarValue<void>>>{};
   double targetMax = 0;
   double targetMin = 0;
-  bool _showValues = false;
+  bool _showValues = true;
   int minItems = 6;
   bool _legendOnEnd = true;
   bool _legendOnBottom = true;
@@ -94,27 +99,23 @@ class _MultiBarChartScreenState extends State<MultiBarChartScreen> {
       body: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
+            child: Container(
+              child: Container(
                 padding: const EdgeInsets.all(12.0),
-                child: BarCharts.map(
+                child: CustomBarChart.map(
                   _getMap(),
-                  // stack: _stackItems,
-                 
+                  stack: _stackItems,
+                  chartBehaviour:
+                      ChartBehaviour(scrollSettings: ScrollSettings()),
                   height: MediaQuery.of(context).size.height * 0.4,
                   itemOptions: BarItemOptions(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                    minBarWidth: 4.0,
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    minBarWidth: 80.0,
                     multiValuePadding:
-                        const EdgeInsets.symmetric(horizontal: 1.0),
+                        const EdgeInsets.symmetric(horizontal: 12.0),
                     barItemBuilder: (data) {
                       return BarItem(
-                        color: [
-                          Colors.blue,
-                          Colors.red,
-                          Colors.green,
-                        ][data.listIndex],
+                        color: Colors.blue,
                         radius: const BorderRadius.vertical(
                           top: Radius.circular(24.0),
                         ),
@@ -122,27 +123,85 @@ class _MultiBarChartScreenState extends State<MultiBarChartScreen> {
                     },
                   ),
                   backgroundDecorations: [
+                    VerticalAxisDecoration(
+                        lineWidth: 2,
+                        showLines: false,
+                        valuesPadding: EdgeInsets.only(top: 10),
+                        showValues: true,
+                        legendFontStyle: TextStyle(
+                            fontSize: 12,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.blueAccent
+                                    : Colors.blueAccent,
+                            fontWeight: FontWeight.w800),
+                        valuesAlign: TextAlign.center,
+                        valueFromIndex: (value) {
+                          int index = value.toInt();
+                          // debugPrint('index1 --------------------------- $index');
+
+                          // var xLables = xAxisValues(widget.values);
+                          // if (index >= 0 && index < xLables.length) {
+                          //   return xLables[index] ?? '';
+                          // }
+                          return '$value';
+                        }),
                     GridDecoration(
-                      showVerticalGrid: true,
-                      showHorizontalValues: _showValues,
-                      showVerticalValues: _showValues,
-                      showTopHorizontalValue:
-                          _legendOnBottom ? _showValues : false,
-                      horizontalLegendPosition: _legendOnEnd
-                          ? HorizontalLegendPosition.end
-                          : HorizontalLegendPosition.start,
-                      verticalLegendPosition: _legendOnBottom
-                          ? VerticalLegendPosition.bottom
-                          : VerticalLegendPosition.top,
+                      verticalAxisStep: 1,
+                      // Adjust this value to control the spacing between vertical grid lines
+                      horizontalAxisStep: 20,
+                      // Adjust this value to control the spacing between horizontal grid lines
                       textStyle: Theme.of(context).textTheme.caption,
                       gridColor: Theme.of(context)
                           .colorScheme
                           .primaryContainer
-                          .withOpacity(0.2),
+                          .withOpacity(0.08),
+                    ),
+                    // targetArea,
+                    // SparkLineDecoration(
+                    //   fill: true,
+                    //   lineColor: Theme.of(context)
+                    //       .primaryColor
+                    //       .withOpacity( 0.0),
+                    //   smoothPoints: true,
+                    // ),
+                    SparkLineDecoration(
+                      fill: true,
+                      lineColor: Theme.of(context)
+                          .primaryColor
+                          .withOpacity(0.0),
+                      smoothPoints: true,
                     ),
                   ],
                   foregroundDecorations: [
-                    BorderDecoration(),
+
+                    ValueDecoration(
+                      alignment: Alignment.topCenter,
+                      textStyle: Theme.of(context).textTheme.button!.copyWith(
+                          color:Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.red
+                              .withOpacity(1.0),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800),
+                    ),
+                    // SparkLineDecoration(
+                    //   fill: false,
+                    //   lineWidth: 1.2,
+                    //   lineColor: Theme.of(context).brightness == Brightness.dark
+                    //       ? Colors.white.withOpacity(1.0)
+                    //       : Colors.red.withOpacity(1.0),
+                    //   smoothPoints: false,
+                    // ),
+                    BorderDecoration(
+                      sidesWidth: Border(
+                        top: BorderSide.none,
+                        right: BorderSide.none,
+                        left: BorderSide.none,
+                        bottom: BorderSide.none,
+                      ),
+                      endWithChart: true,
+                    ),
                     ValueDecoration(
                       alignment: Alignment.bottomCenter,
                       textStyle: Theme.of(context).textTheme.button!.copyWith(
@@ -168,6 +227,15 @@ class _MultiBarChartScreenState extends State<MultiBarChartScreen> {
                               .colorScheme
                               .onPrimary
                               .withOpacity(_stackItems ? 1.0 : 0.0)),
+                    ),
+                    BorderDecoration(
+                      sidesWidth: Border(
+                        top: BorderSide.none,
+                        right: BorderSide.none,
+                        left: BorderSide.none,
+                        bottom: BorderSide.none,
+                      ),
+                      endWithChart: true,
                     ),
                   ],
                 ),

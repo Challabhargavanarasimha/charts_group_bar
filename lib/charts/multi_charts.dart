@@ -25,7 +25,7 @@ class MultipleBarChartsScreen1 extends StatelessWidget {
             width: MediaQuery.of(context).size.width - 24.0,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: BarChart<double>(
+              child: BarCharts<double>(
                 data: chartData[index],
                 dataToValue: (value) => value,
                 height: 200.0, // Adjust the height as needed

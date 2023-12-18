@@ -72,7 +72,7 @@ class _BarTargetChartScreenState extends State<BarTargetChartScreen> {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: BarChart(
+              child: BarCharts(
                 data: _values,
                 height: MediaQuery.of(context).size.height * 0.4,
                 dataToValue: (BarValue value) => value.max ?? 0,

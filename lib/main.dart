@@ -11,12 +11,15 @@ import 'package:example/showcase/ios_charts.dart';
 import 'package:example/showcase/showcase_charts.dart';
 import 'package:example/summary_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'charts/line_chart_screen.dart';
 import 'charts/scrollable_chart_screen.dart';
+import 'grouped/custom_groupd_bar.dart';
+import 'grouped/summary_model.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
         primaryColor: Colors.orange,
@@ -27,7 +30,7 @@ void main() {
               secondary: Color(0xFF353535),
               error: Colors.lightBlue,
             )
-            .copyWith(secondary: Color(0xFFd8262C)),
+            .copyWith(secondary: Color(0xFFd8562C)),
       ),
       home: ChartDemo()));
 }
@@ -41,10 +44,17 @@ class ChartDemo extends StatefulWidget {
 
 class _ChartDemoState extends State<ChartDemo> {
   List? data;
+  DailyActivitySummerModel? summaryData;
 
   // List<DailyActivitySummerData> userlist = [];
   // List<SummaryData>? usersavedlist =[];
   int? index;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +76,16 @@ class ShowList extends StatefulWidget {
 }
 
 class _ShowListState extends State<ShowList> {
+  DailyActivitySummerModel? summaryData;
+
   Future<void> fetchData() async {
     String? data =
         await DefaultAssetBundle.of(context).loadString("assets/values.json");
     dynamic decodedData = jsonDecode(data);
-    debugPrint('decodedData -------------------$decodedData');
+    summaryData = await DailyActivitySummerModel.fromJson(
+        decodedData as Map<String, dynamic>);
+
+    debugPrint('decodedData -------------------$summaryData');
   }
 
   @override
@@ -129,8 +144,10 @@ class _ShowListState extends State<ShowList> {
             ),
           ),
           onTap: () {
-            Navigator.of(context)
-                .push<void>(MaterialPageRoute(builder: (_) => GroupedCharts()));
+            Navigator.of(context).push<void>(MaterialPageRoute(
+                builder: (_) => GroupedCharts(
+                      summaryData: summaryData,
+                    )));
           },
         ),
         SizedBox(

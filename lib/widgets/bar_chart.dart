@@ -5,8 +5,8 @@ typedef DataToValue<T> = double Function(T item);
 typedef DataToAxis<T> = String Function(int item);
 
 /// Short-hand to easier create several bar charts
-class BarChart<T> extends StatelessWidget {
-  BarChart({
+class BarCharts<T> extends StatelessWidget {
+  BarCharts({
     required List<T> data,
     required DataToValue<T> dataToValue,
     this.height = 240.0,
@@ -19,7 +19,7 @@ class BarChart<T> extends StatelessWidget {
   })  : _mappedValues = [data.map((e) => BarValue<T>(dataToValue(e))).toList()],
         super(key: key);
 
-  const BarChart.map(
+  const BarCharts.map(
     this._mappedValues, {
     this.height = 240.0,
     this.backgroundDecorations = const [],

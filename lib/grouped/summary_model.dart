@@ -1,5 +1,3 @@
-
-
 class DailyActivitySummerModel {
   bool? status;
   String? message;
@@ -8,12 +6,12 @@ class DailyActivitySummerModel {
   DailyActivitySummerModel({this.status, this.message, this.data});
 
   DailyActivitySummerModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'] as bool ;
+    status = json['status'] as bool;
     message = json['message'] as String;
     if (json['data'] != null) {
       data = <DailyActivitySummerData>[];
-      json['data'].forEach(( List<DailyActivitySummerData> v) {
-        data!.add(DailyActivitySummerData.fromJson(v as Map<String, dynamic> ));
+      (json['data'] as List<dynamic>).forEach((dynamic v) {
+        data!.add(DailyActivitySummerData.fromJson(v as Map<String, dynamic>));
       });
     }
   }
@@ -29,7 +27,7 @@ class DailyActivitySummerData {
     date = json['date'] as String;
     if (json['summaryData'] != null) {
       summaryData = <SummaryData>[];
-      json['summaryData'].forEach(( List<SummaryData> v) {
+      (json['summaryData'] as List<dynamic>).forEach((dynamic v) {
         summaryData!.add(SummaryData.fromJson(v as Map<String, dynamic>));
       });
     }
