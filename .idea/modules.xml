@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/example.iml" filepath="$PROJECT_DIR$/.idea/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/grouped_charts.iml" filepath="$PROJECT_DIR$/grouped_charts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/grouped_charts_android.iml" filepath="$PROJECT_DIR$/android/grouped_charts_android.iml" />
     </modules>
   </component>
 </project>
