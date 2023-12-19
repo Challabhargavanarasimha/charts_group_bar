@@ -17,7 +17,8 @@ class CustomBarChart<T> extends StatefulWidget {
     this.chartBehaviour = const ChartBehaviour(),
     this.itemOptions = const BarItemOptions(),
     this.stack = false,
-    Key? key, this.summaryData,
+    Key? key,
+    this.summaryData,
   })  : _mappedValues = [data.map((e) => BarValue<T>(dataToValue(e))).toList()],
         super(key: key);
 
@@ -29,7 +30,8 @@ class CustomBarChart<T> extends StatefulWidget {
     this.chartBehaviour = const ChartBehaviour(),
     this.itemOptions = const BarItemOptions(),
     this.stack = false,
-    Key? key, this.summaryData,
+    Key? key,
+    this.summaryData,
   }) : super(key: key);
   final DailyActivitySummerModel? summaryData;
   final List<List<BarValue<T>>> _mappedValues;
@@ -46,46 +48,35 @@ class CustomBarChart<T> extends StatefulWidget {
 
 class _CustomBarChartState<T> extends State<CustomBarChart<T>> {
   final _controller = ScrollController();
-  double max = 0.0;
+  double highestValue = 0.0;
+  double axisStep = 0.0;
 
   @override
   void initState() {
     // TODO: implement initState
-    getHighestValue(widget.summaryData!.data!.cast<Map<String, dynamic>>());
+    getHighestValue(widget.summaryData!.data!);
+    axisStep = calculateAxisStep(highestValue, widget.height);
     debugPrint(
         'widget._mappedValues ----------------- ${widget._mappedValues}');
     super.initState();
   }
 
-  double findHighestValue(List<Map<String, dynamic>> dataList) {
-    for (var entry in dataList) {
-      if (entry.containsKey('summaryData')) {
-        List<Map<String, dynamic>>? summaryDataList =
-            entry['summaryData'] as List<Map<String, dynamic>>;
-        // List.castFrom(entry['summaryData']);
+  double calculateAxisStep(double highestValue, double graphHeight) {
+    // Customize the number of divisions on the Y-axis
+    int divisions = 8; // Adjust this value based on your requirement
 
-        for (var summaryData in summaryDataList) {
-          if (summaryData.containsKey('activityValue')) {
-            double activityValue =
-                double.parse(summaryData['activityValue'].toString());
+    // Calculate the step to divide the range into equal parts
+    double step = highestValue / divisions;
 
-            if (activityValue > max) {
-              max = activityValue;
-            }
-          }
-        }
-      }
-    }
-    debugPrint('max ------------------------------------ $max');
-    return max;
+    // Ensure that the step is at least 1 to avoid division by zero
+    return step > 0 ? step : 1;
   }
-  double getHighestValue(List<Map<String, dynamic>> responseData) {
-    double highestValue = 0.0;
 
+  double getHighestValue(List<DailyActivitySummerData> responseData) {
     for (var entry in responseData) {
-      List<Map<String, dynamic>> summaryData = entry['summaryData'] as  List<Map<String, dynamic>>;
-      for (var summary in summaryData) {
-        double activityValue = double.parse(summary['activityValue'].toString());
+      List<SummaryData>? summaryData = entry.summaryData;
+      for (var summary in summaryData!) {
+        double activityValue = double.parse(summary.activityValue.toString());
         if (activityValue > highestValue) {
           highestValue = activityValue;
         }
@@ -94,15 +85,16 @@ class _CustomBarChartState<T> extends State<CustomBarChart<T>> {
 
     return highestValue;
   }
+
   @override
   Widget build(BuildContext context) {
     final _data = ChartData<T>(
       widget._mappedValues,
-      axisMax: max,
+      axisMax: highestValue,
       valueAxisMaxOver: 1,
       dataStrategy: widget.stack
-          ? StackDataStrategy()
-          : DefaultDataStrategy(stackMultipleValues: false),
+          ? const StackDataStrategy()
+          : const DefaultDataStrategy(stackMultipleValues: false),
     );
 
     return Row(
@@ -110,8 +102,8 @@ class _CustomBarChartState<T> extends State<CustomBarChart<T>> {
         Container(
           child: AnimatedContainer(
 // padding: EdgeInsets.only(top: 20,bottom: 0),
-            duration: Duration(milliseconds: 0),
-            decoration: BoxDecoration(
+            duration: const Duration(milliseconds: 0),
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.centerRight,
                   end: Alignment.centerLeft,
@@ -134,7 +126,7 @@ class _CustomBarChartState<T> extends State<CustomBarChart<T>> {
                   asFixedDecoration: true,
                   lineWidth: 10.0,
                   showTopValue: true,
-                  axisStep: 80,
+                  axisStep: axisStep,
                   showValues: true,
                   showLineForValue: (value) {
                     return false;
@@ -159,14 +151,15 @@ class _CustomBarChartState<T> extends State<CustomBarChart<T>> {
                   valuesAlign: TextAlign.end,
                   lineColor: Colors.transparent,
                   valuesPadding:
-                      const EdgeInsets.only(right: 8.0, top: 21, bottom: 0),
+                      const EdgeInsets.only(right: 8.0, top: 22, bottom: 0),
                   // dashArray: yLabelsDoubles
                 )
               ],
               ChartState<T>(
                 data: _data,
                 itemOptions: widget.itemOptions,
-                behaviour: ChartBehaviour(scrollSettings: ScrollSettings()),
+                behaviour:
+                    const ChartBehaviour(scrollSettings: ScrollSettings()),
                 foregroundDecorations: widget.foregroundDecorations,
                 backgroundDecorations: [
                   ...widget.backgroundDecorations,
@@ -185,14 +178,14 @@ class _CustomBarChartState<T> extends State<CustomBarChart<T>> {
                 child: Container(
                   // width: MediaQuery.of(context).size.width - 24.0,
                   child: AnimatedChart<T>(
-                    duration: Duration(milliseconds: 450),
+                    duration: const Duration(milliseconds: 450),
                     width: MediaQuery.of(context).size.width - 24,
                     height: MediaQuery.of(context).size.height * 0.4,
                     state: ChartState<T>(
                       data: _data,
                       itemOptions: widget.itemOptions,
-                      behaviour:
-                          ChartBehaviour(scrollSettings: ScrollSettings()),
+                      behaviour: const ChartBehaviour(
+                          scrollSettings: ScrollSettings()),
                       foregroundDecorations: widget.foregroundDecorations,
                       backgroundDecorations: [
                         ...widget.backgroundDecorations,
