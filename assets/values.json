@@ -14,7 +14,7 @@
         {
           "activityType": "1",
           "activityName": "NumberOfGlassTaken",
-          "activityValue": "120.00",
+          "activityValue":"380.0",
           "activityValue1": "0"
         }
       ]
@@ -76,7 +76,7 @@
         {
           "activityType": "1",
           "activityName": "NumberOfGlassTaken",
-          "activityValue": "10.00",
+          "activityValue": "480.00",
           "activityValue1": "0"
         },
         {

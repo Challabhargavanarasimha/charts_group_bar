@@ -52,7 +52,7 @@ class _GroupedChartsState extends State<GroupedCharts> {
         // width: MediaQuery.of(context).size.width,
         child: Center(
           child: ElevatedButton(onPressed: (){
-            Get.to(()=>CustomMultiBarChartScreen(summaryData:summaryData,height: MediaQuery.of(context).size.height*0.4,));
+            Get.to(()=>CustomMultiBarChartScreen(summaryData: summaryData,height: MediaQuery.of(context).size.height*0.4,));
           }, child: const Text('Multi Bars Custom')),
         )
       ),
