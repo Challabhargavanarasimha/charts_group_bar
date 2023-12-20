@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../model/activity_summary_model.dart';
 import 'custom_bar_chart.dart';
+import 'old_custom_bar_chart.dart';
 
 class CustomMultiBarChartScreen extends StatefulWidget {
   final double? height;
@@ -67,25 +68,60 @@ class _CustomMultiBarChartScreenState extends State<CustomMultiBarChartScreen> {
     return step > 0 ? step : 1;
   }
 
-  List<List<BarValue<void>>> _getMap() {
-    List<List<BarValue<void>>> result = [];
-    for (int seriesIndex = 0;
-        seriesIndex < widget.summaryData!.data!.length;
-        seriesIndex++) {
-      List<BarValue<void>>? seriesValues =
-          widget.summaryData!.data![seriesIndex].summaryData!.map((data) {
-        return BarValue<void>(
-          double.parse(data.activityValue.toString()),
-          // y: double.parse(data.activityValue.toString()),
-          // x: data.activityName,
-        );
-      }).toList();
-      result.add(seriesValues);
-    }
-
-    debugPrint('result -----------------------------------------$result');
-    return result;
+  static List<List<BarValue<void>>> _getMap() {
+    // Replace this with your static data
+    return [
+      [BarValue<void>(100), BarValue<void>(200)],
+      [
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+      ],
+      [BarValue<void>(100), BarValue<void>(200)],
+      [
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+        BarValue<void>(250),
+      ],
+      [BarValue<void>(100), BarValue<void>(200)],
+      [
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+        BarValue<void>(250),
+        BarValue<void>(150),
+        BarValue<void>(250)
+      ],
+      // Add more data as needed
+    ];
   }
+
+  // List<List<BarValue<void>>> _getMap() {
+  //   List<List<BarValue<void>>> result = [];
+  //   for (int seriesIndex = 0;
+  //   seriesIndex < widget.summaryData!.data!.length;
+  //   seriesIndex++) {
+  //     List<BarValue<void>>? seriesValues =
+  //     widget.summaryData!.data![seriesIndex].summaryData!.map((data) {
+  //       return BarValue<void>(
+  //         double.parse(data.activityValue.toString()),
+  //         // y: double.parse(data.activityValue.toString()),
+  //         // x: data.activityName,
+  //       );
+  //     }).toList();
+  //     result.add(seriesValues);
+  //   }
+  //
+  //   debugPrint('result -----------------------------------------$result');
+  //   return result;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +132,10 @@ class _CustomMultiBarChartScreenState extends State<CustomMultiBarChartScreen> {
         ),
       ),
       body: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.452,
+        height: MediaQuery.of(context).size.height * 0.4,
         child: Container(
           padding: const EdgeInsets.all(12.0),
-          child: CustomBarChart.map(
+          child: OldCustomBarChart.map(
             _getMap(),
             // stack: _stackItems,
             chartBehaviour:
@@ -119,6 +155,7 @@ class _CustomMultiBarChartScreenState extends State<CustomMultiBarChartScreen> {
               },
             ),
             summaryData: widget.summaryData,
+
             backgroundDecorations: [
               VerticalAxisDecoration(
                   lineWidth: 2,
@@ -129,12 +166,13 @@ class _CustomMultiBarChartScreenState extends State<CustomMultiBarChartScreen> {
                       fontSize: 12,
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
-                          : Colors.blue,
+                          : Colors.blueAccent,
                       fontWeight: FontWeight.w800),
                   valuesAlign: TextAlign.center,
                   valueFromIndex: (value) {
                     int index = value.toInt();
                     // debugPrint('index1 --------------------------- $index');
+
                     // var xLables = xAxisValues(widget.values);
                     if (index >= 0 && index < xLables!.length) {
                       return xLables![index] ?? '';
@@ -142,26 +180,24 @@ class _CustomMultiBarChartScreenState extends State<CustomMultiBarChartScreen> {
                     return '';
                   }),
               GridDecoration(
-                  verticalAxisStep: 1,
-                  // Adjust this value to control the spacing between vertical grid lines
-                  horizontalAxisStep: axisStep,
-                  // Adjust this value to control the spacing between horizontal grid lines
-                  textStyle: Theme.of(context).textTheme.caption,
-                  gridColor: Colors.red,
-                  horizontalValuesPadding: EdgeInsets.only(top: 10)),
-              SparkLineDecoration(
-                fill: true,
-                lineColor: Theme.of(context).primaryColor.withOpacity(0.0),
-                smoothPoints: true,
+                verticalValuesPadding: EdgeInsets.only(top: 10),
+                verticalAxisStep: 1,
+                // Adjust this value to control the spacing between vertical grid lines
+                horizontalAxisStep: axisStep,
+                // Adjust this value to control the spacing between horizontal grid lines
+                textStyle: Theme.of(context).textTheme.caption,
+                gridColor: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withOpacity(1),
               ),
+              // targetArea,
             ],
             foregroundDecorations: [
               ValueDecoration(
                 alignment: Alignment.topCenter,
                 textStyle: Theme.of(context).textTheme.button!.copyWith(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.red.withOpacity(1.0),
+                    color: Colors.blueAccent,
                     fontSize: 12,
                     fontWeight: FontWeight.w800),
               ),
