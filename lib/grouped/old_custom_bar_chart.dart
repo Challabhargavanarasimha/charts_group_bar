@@ -88,7 +88,35 @@ class _OldCustomBarChartState<T> extends State<OldCustomBarChart<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final chartData = ChartData<T>(
+      [
+        [
+          ChartItem(10),
+          ChartItem(20),
+          ChartItem(20),
+        ],
+        [
+          ChartItem(10),
+          ChartItem(20),
+          ChartItem(20),
+        ],[
+        ChartItem(10),
+        ChartItem(20),
+        ChartItem(20),
+      ],[
+        ChartItem(10),
+        ChartItem(20),
+        ChartItem(20),
+      ],[
+        ChartItem(10),
+        ChartItem(20),
+        ChartItem(20),
+      ],
+        // Add more data points as needed
+      ],
+    );
     final _data = ChartData(
+
       widget._mappedValues,
       axisMax: highestValue,
       valueAxisMaxOver: 1,
@@ -182,8 +210,8 @@ class _OldCustomBarChartState<T> extends State<OldCustomBarChart<T>> {
                   state: ChartState<T>(
                     data: _data,
                     itemOptions: widget.itemOptions,
-                    behaviour: const ChartBehaviour(
-                        scrollSettings: ScrollSettings()),
+                    behaviour:
+                        const ChartBehaviour(scrollSettings: ScrollSettings()),
                     foregroundDecorations: widget.foregroundDecorations,
                     backgroundDecorations: [
                       ...widget.backgroundDecorations,
